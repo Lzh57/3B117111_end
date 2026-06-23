@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}登入 - 客戶管理系統{% endblock %}
+{% block content %}
+<article style="max-width: 420px; margin: 0 auto;">
+    <h1>登入</h1>
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+
+        <label for="username">{{ form.username.label.text }}</label>
+        {{ form.username(id="username", placeholder="帳號") }}
+        {% for error in form.username.errors %}
+        <small style="color: var(--pico-del-color);">{{ error }}</small>
+        {% endfor %}
+
+        <label for="password">{{ form.password.label.text }}</label>
+        {{ form.password(id="password", placeholder="密碼") }}
+        {% for error in form.password.errors %}
+        <small style="color: var(--pico-del-color);">{{ error }}</small>
+        {% endfor %}
+
+        {{ form.submit() }}
+    </form>
+</article>
+{% endblock %}

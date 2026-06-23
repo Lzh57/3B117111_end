@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}客戶管理系統{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="container">
+        <nav>
+            <ul>
+                <li><strong><a href="{{ url_for('index') }}">客戶管理系統</a></strong></li>
+            </ul>
+            <ul>
+                {% if session.username %}
+                <li>歡迎，{{ session.username }}</li>
+                <li><a href="{{ url_for('customer_list') }}">客戶列表</a></li>
+                <li><a href="{{ url_for('logout') }}">登出</a></li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}">登入</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <article style="padding: 0.75rem 1rem; margin-bottom: 1rem;">{{ message }}</article>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
